@@ -1,10 +1,8 @@
 import React,{createContext,useReducer,useContext} from 'react';
 import { initialState,registerReducer } from '../reducers/registerReducer';
 import axios from 'axios';
-
-
-
 const RegisterContext = createContext();
+
 const URL="http://localhost:5000/api/auth/register";
 
 export const RegisterProvider = ({children})=>{
@@ -17,14 +15,19 @@ export const RegisterProvider = ({children})=>{
     password:state.password,
 }
     const handleSubmit=async(e)=>{
-      //  e.preventDefault();
-
+       e.preventDefault();
+       console.log(formData);
    try {
      const response = await axios.post(URL,formData,{
         headers:{
             'Content-Type':'application/json'
         }
      });
+     if(response.status===201){
+        localStorage.setItem('token',response.data.token);
+     }else{
+      console.log("error");
+     }
    } catch (error) {
     console.log(error);
    }

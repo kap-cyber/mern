@@ -21,7 +21,9 @@ const register=async(req,res)=>{
         if(existingUser){
            return res.status(400).json({ message: 'Email already registered' });
         }
-        const userCreated = await User.create({ full_name, email, phone_number, password });
+       const salt = await bcrypt.genSalt(10);
+       const hashedPassword = await bcrypt.hash(password, salt);
+        const userCreated = await User.create({ full_name, email, phone_number, password:hashedPassword });
         const token=generateToken(userCreated);
        res.status(201).json({
           message: "User registered successfully",
@@ -37,10 +39,13 @@ const register=async(req,res)=>{
 });
         
     } catch (error) {
-        console.log(error);
-    }
-}
-
+    console.error("REGISTER ERROR:", error);
+    return res.status(500).json({
+      message: "Registration failed",
+      error: error.message,
+    });
+  }
+};
 const login=async(req,res)=>{
     
     try {
@@ -53,7 +58,19 @@ const login=async(req,res)=>{
         if(!verify){
              return res.status(401).json({ message: "Invalid password" });
         }
-         res.status(200).json({ message: "Login successful", user });
+        const token=generateToken(user);
+           res.status(200).json({
+          message: "Login Successfully",
+          user: {
+          id: user._id,
+          full_name: user.full_name,
+          email: user.email,
+          phone_number: user.phone_number,
+          role: user.role,
+          auth_type: user.auth_type,
+       },
+       token
+});
     } catch (error) {
         console.log(error);
          res.status(500).json({ message: "Server error" });

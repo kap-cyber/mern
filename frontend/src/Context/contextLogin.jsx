@@ -1,7 +1,6 @@
 import { createContext, useReducer, useContext,useState } from 'react';
 import { loginReducer, initialState } from '../reducers/loginReducer';
 import axios from 'axios';
-import toast from 'react-hot-toast';
 
 
 
@@ -25,17 +24,11 @@ export const LoginProvider = ({ children }) => {
             'Content-Type':'application/json'
           }
         })
-        console.log(response.data.message);
         if(response.status===200){
-          // localStorage.setItem('token',response.data.token);
-          // setIsLoggedIn(true);
-          toast.success(response.data.message, {
-            className: 'bg-green-800 text-red',
-          });
+          localStorage.setItem('token',response.data.token);
+          setIsLoggedIn(true);
         }else{
-          toast.error('please fill correct credentials', {
-            className: 'bg-red-800 text-red',
-          });
+          //error code
         }
       } catch (error) {
         console.error(error);
