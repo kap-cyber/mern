@@ -1,16 +1,18 @@
 import { createContext, useReducer, useContext,useState } from 'react';
 import { loginReducer, initialState } from '../reducers/loginReducer';
 import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
+import { useAuth } from '../Context/authContext';
 
 
 const LoginContext = createContext();
 
-const URL="http://localhost:5000/api/auth/login";
+const URL="http://localhost:5001/api/auth/login";
 
 export const LoginProvider = ({ children }) => {
   const [state, dispatch] = useReducer(loginReducer, initialState);
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
+     const navigate = useNavigate();
+     const {login}=useAuth();
    
    const loginData={
      email:state.email,
@@ -25,8 +27,7 @@ export const LoginProvider = ({ children }) => {
           }
         })
         if(response.status===200){
-          localStorage.setItem('token',response.data.token);
-          setIsLoggedIn(true);
+          login(response.data.token);
         }else{
           //error code
         }
@@ -35,13 +36,8 @@ export const LoginProvider = ({ children }) => {
       }
       
     }
-    const logout=()=>{
-     localStorage.removeItem("token");
-     setIsLoggedIn(false);
-     
-  }
   return (
-    <LoginContext.Provider value={{ state, dispatch,handleSubmit,logout,isLoggedIn }}>
+    <LoginContext.Provider value={{ state, dispatch,handleSubmit }}>
       {children}
     </LoginContext.Provider>
   );

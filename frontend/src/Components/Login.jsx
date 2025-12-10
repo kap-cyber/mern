@@ -12,8 +12,6 @@ function Login() {
         field:e.target.name,
         value:e.target.value,
        });
-       
-       
   })
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -72,10 +70,23 @@ function Login() {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition"
+              className=" cursor-pointer w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition"
             >
               Login
             </button>
+            <div class="flex items-center my-4">
+  <div class="flex-grow border-t border-gray-300"></div>
+  <span class="mx-2 text-gray-500 text-sm font-medium">OR</span>
+  <div class="flex-grow border-t border-gray-300"></div>
+</div>
+            <div class="flex justify-center mt-3">
+              <NavLink to="/send-otp">
+  <button class="cursor-pointer text-gray-500 border-solid border-blue-600 text-sm border-1 px-6 py-2 rounded-md  hover:bg-blue-500 hover:text-white hover:text-sm hover:rounded-none transition">
+    Login with OTP
+  </button>
+  </NavLink>
+</div>
+
             <p className="text-sm text-center mt-4">
               <NavLink to="/signup" className="text-blue-600 hover:underline">
                 Forgot password?

@@ -3,9 +3,11 @@ import React from 'react';
 import logo from '../images&logo/logo.jpg'; // Make sure the logo exists here
 import { NavLink } from 'react-router-dom';
 import { useLogin } from '../Context/contextLogin';
+import { useState,useEffect } from 'react';
+import { useAuth } from '../Context/authContext';
 
 function Navbar() {
-  const {isLoggedIn}=useLogin();
+  const {logout,token}=useAuth();
   return (
     <nav className="bg-gray-800 p-2 flex items-center justify-between">
       {/* Logo on the left */}
@@ -26,25 +28,22 @@ function Navbar() {
         <div className="space-x-4">
         
          
-            {isLoggedIn ? ( <NavLink
-            to="/logout"
+            {token ? ( <button
             className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-700 hover:text-white transition"
-          >
+          onClick={logout}>
             Logout
-          </NavLink>
+          </button>
           ):
           (   
             <>
-            <NavLink
-            to="/login"
+            <button
             className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-700 hover: transition">
             Login
-            </NavLink>
-             <NavLink
-            to="/signup"
+            </button>
+             <button
             className="bg-green-500 text-white  px-4 py-1 rounded hover:bg-green-700 hover: transition">
             SignUp
-          </NavLink>
+          </button>
           </>
         
           )}

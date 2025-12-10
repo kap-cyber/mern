@@ -5,16 +5,24 @@ import App from './App';
 // import reportWebVitals from './reportWebVitals';
 import { RegisterProvider } from './Context/contextRegister';
 import { LoginProvider } from './Context/contextLogin';
-
+import { BrowserRouter } from 'react-router-dom';
+import { OtpProvider } from './Context/contextOtp';
+import { AuthProvider } from './Context/authContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     
   <React.StrictMode>
+    <BrowserRouter>
+    <AuthProvider>
+    <OtpProvider>
     <LoginProvider>
     <RegisterProvider>
     <App />
   </RegisterProvider>
   </LoginProvider>
+  </OtpProvider>
+  </AuthProvider>
+  </BrowserRouter>
   </React.StrictMode>
   
 );

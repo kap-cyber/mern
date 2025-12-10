@@ -3,7 +3,7 @@ import { initialState,registerReducer } from '../reducers/registerReducer';
 import axios from 'axios';
 const RegisterContext = createContext();
 
-const URL="http://localhost:5000/api/auth/register";
+const URL="http://localhost:5001/api/auth/register";
 
 export const RegisterProvider = ({children})=>{
 

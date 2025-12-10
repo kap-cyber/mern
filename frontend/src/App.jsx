@@ -13,6 +13,8 @@ import Admin from './Security/Admin';
 import Login from './Components/Login';
 import Logout from './Components/Logout';
 import Signup from './Components/Signup';
+import Otp_Login from './Components/Otp_Login';
+import Otp_Verify from './Components/Otp_verify';
 import { Toaster } from 'react-hot-toast';
 
 
@@ -20,7 +22,7 @@ function App() {
   return (
     <>
     
-    <Router>
+    
       <Navbar/>
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
@@ -33,11 +35,13 @@ function App() {
        <Route path="/login" element={<Login/>}/>
        <Route path="/logout" element={<Logout/>}/>
        <Route path="/signup" element={<Signup/>}/>
+       <Route path="/send-otp" element={<Otp_Login/>}/>
+        <Route path="/otp-verify" element={<Otp_Verify/>}/>
       </Routes>
       </main>
       <Footer/>
       </div>
-    </Router>
+    
     <Toaster position="top-right" reverseOrder={false} />
     </>
   );
