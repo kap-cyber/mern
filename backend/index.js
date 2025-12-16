@@ -3,7 +3,7 @@ const connectDB = require('./connect/db');
 const server = express();
 const auth_router = require('./router/auth-router');
 const contact_router=require("./router/contact-router");
-const PORT = 5001;
+const PORT = process.env.PORT;
 const cors = require("cors");
 
 server.use(cors({

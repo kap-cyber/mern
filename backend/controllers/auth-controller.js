@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const Otp=require("../models/Otp-model");
 const nodemailer=require("nodemailer");
 const getOtpMailOptions=require("../utils/getOtpMailOptions");
+const EMAIL_USER=process.env.EMAIL_USER;
+const EMAIL_PASS=process.env.EMAIL_PASS;
 require("dotenv").config();
 const JWT_SECRET=process.env.JWT_KEY;
 const generateToken=(user)=>{
@@ -95,8 +97,8 @@ const genrateOtp=async(req,res)=>{
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "info.dealfusion@gmail.com",
-        pass: "gxgsyckcqzqcxuzp"
+        user: EMAIL_USER,
+        pass: EMAIL_PASS
       }
     });
 
