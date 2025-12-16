@@ -36,14 +36,18 @@ function Navbar() {
           ):
           (   
             <>
+            <NavLink to="/login">
             <button
             className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-700 hover: transition">
             Login
             </button>
+            </NavLink>
+            <NavLink to="/signup">
              <button
             className="bg-green-500 text-white  px-4 py-1 rounded hover:bg-green-700 hover: transition">
             SignUp
           </button>
+          </NavLink>
           </>
         
           )}

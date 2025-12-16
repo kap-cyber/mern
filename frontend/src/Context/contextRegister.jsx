@@ -1,12 +1,13 @@
 import React,{createContext,useReducer,useContext} from 'react';
 import { initialState,registerReducer } from '../reducers/registerReducer';
 import axios from 'axios';
+import { useAuth } from '../Context/authContext';
 const RegisterContext = createContext();
 
 const URL="http://localhost:5001/api/auth/register";
 
 export const RegisterProvider = ({children})=>{
-
+    const {login}=useAuth();
     const [state,dispatch]=useReducer(registerReducer,initialState);
     const  formData={
     full_name:state.fullname,
@@ -24,7 +25,7 @@ export const RegisterProvider = ({children})=>{
         }
      });
      if(response.status===201){
-        localStorage.setItem('token',response.data.token);
+        login(response.data.token);
      }else{
       console.log("error");
      }
