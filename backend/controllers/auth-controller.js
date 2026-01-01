@@ -1,3 +1,4 @@
+require("dotenv").config();
 const User = require("../models/User-model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -6,7 +7,6 @@ const nodemailer=require("nodemailer");
 const getOtpMailOptions=require("../utils/getOtpMailOptions");
 const EMAIL_USER=process.env.EMAIL_USER;
 const EMAIL_PASS=process.env.EMAIL_PASS;
-require("dotenv").config();
 const JWT_SECRET=process.env.JWT_KEY;
 const generateToken=(user)=>{
      return jwt.sign({
@@ -140,4 +140,6 @@ const VerifyOtp=async(req,res)=>{
   }
 
 };
+console.log("EMAIL:", EMAIL_USER);
+console.log("PASS:", EMAIL_PASS ? "LOADED" : "MISSING");
 module.exports = {register,login,genrateOtp,VerifyOtp};
